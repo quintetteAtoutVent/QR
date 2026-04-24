@@ -8,11 +8,8 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body {
-            background: #12151a;
-            font-family: 'Montserrat', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
+            background: #12151a; font-family: 'Montserrat', sans-serif;
+            min-height: 100vh; display: flex; justify-content: center;
             padding: 36px 16px 48px;
         }
         .inner { width: 100%; max-width: 400px; text-align: center; }
@@ -21,27 +18,39 @@
             border: 1.5px solid #c5a059; padding: 4px;
             background: #1c1f26; margin-bottom: 18px;
         }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.55rem; font-weight: 700;
-            color: #f0e6cc; letter-spacing: 0.5px; margin-bottom: 4px;
-        }
-        .sub {
-            font-size: 0.78rem; font-weight: 300; color: #8a7b5e;
-            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px;
-        }
+        h1 { font-family: 'Playfair Display', serif; font-size: 1.55rem; font-weight: 700; color: #f0e6cc; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .sub { font-size: 0.78rem; font-weight: 300; color: #8a7b5e; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px; }
         .btn {
             display: flex; align-items: center; justify-content: center; gap: 10px;
             text-decoration: none; padding: 15px 18px; margin-bottom: 10px;
             border-radius: 6px; font-size: 0.82rem; letter-spacing: 1.5px;
             text-transform: uppercase; font-weight: 500; cursor: pointer;
+            width: 100%; border: none; font-family: 'Montserrat', sans-serif;
         }
-        .btn-primary { background: #c5a059; color: #12151a; border: none; }
+        .btn-primary { background: #c5a059; color: #12151a; }
         .btn-primary:active { background: #b08c46; }
         .btn-secondary { background: transparent; color: #c5a059; border: 1px solid rgba(197,160,89,0.35); }
         .btn-secondary:active { background: rgba(197,160,89,0.08); }
         hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 18px 0; }
         .footer { margin-top: 32px; font-size: 0.72rem; color: #4a4030; letter-spacing: 1px; text-transform: uppercase; line-height: 1.8; }
+
+        /* Overlay lightbox */
+        .overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.93); z-index: 100;
+            flex-direction: column; align-items: center; justify-content: flex-start;
+            padding: 16px; overflow-y: auto;
+        }
+        .overlay.open { display: flex; }
+        .overlay-close {
+            align-self: flex-end; background: none;
+            border: 1px solid rgba(197,160,89,0.5); color: #c5a059;
+            font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+            padding: 8px 16px; border-radius: 4px; cursor: pointer;
+            margin-bottom: 14px; font-family: 'Montserrat', sans-serif;
+        }
+        .overlay-close:active { background: rgba(197,160,89,0.1); }
+        .overlay img { width: 100%; max-width: 500px; border-radius: 4px; display: block; }
     </style>
 </head>
 <body>
@@ -50,9 +59,9 @@
         <h1>Quintette Atout Vent</h1>
         <p class="sub">Musique de chambre · Le Havre</p>
 
-        <a href="Programme abbaye.png" class="btn btn-primary" target="_blank">
+        <button class="btn btn-primary" onclick="document.getElementById('overlay').classList.add('open')">
             📖 Programme du concert
-        </a>
+        </button>
 
         <hr>
 
@@ -62,6 +71,12 @@
         <a href="https://quintetteatoutvent.github.io/#contact" class="btn btn-secondary" target="_blank">✉️ Nous contacter</a>
 
         <div class="footer">© 2025 Quintette Atout Vent<br>Scannez pour nous suivre</div>
+    </div>
+
+    <!-- Lightbox programme -->
+    <div class="overlay" id="overlay">
+        <button class="overlay-close" onclick="document.getElementById('overlay').classList.remove('open')">✕ Fermer</button>
+        <img src="Programme abbaye.png" alt="Programme du concert">
     </div>
 </body>
 </html>
